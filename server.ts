@@ -29,22 +29,25 @@ function getAIClient(): GoogleGenAI {
   });
 }
 
-// Resilient content generator with quick retry for temporary high demand (503)
+// Resilient content generator with quick retry and timeout protection
 async function generateWithFallback(ai: GoogleGenAI, options: any) {
+  const callWithTimeout = (opts: any, timeoutMs = 12000) => {
+    return Promise.race([
+      ai.models.generateContent({ model: 'gemini-3.8-flash', ...opts }),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('AI model response timed out')), timeoutMs)
+      ),
+    ]);
+  };
+
   try {
-    return await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      ...options,
-    });
+    return (await callWithTimeout(options)) as any;
   } catch (err: any) {
     const errStr = String(err?.message || err);
     if (err?.status === 503 || errStr.includes('503') || errStr.includes('high demand') || errStr.includes('UNAVAILABLE')) {
       console.warn('Gemini 3.8 flash experiencing temporary spike, retrying once...');
-      await new Promise((r) => setTimeout(r, 600));
-      return await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        ...options,
-      });
+      await new Promise((r) => setTimeout(r, 500));
+      return (await callWithTimeout(options, 10000)) as any;
     }
     throw err;
   }
