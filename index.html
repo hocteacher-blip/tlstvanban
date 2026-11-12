@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SCHOOL DOC AI - Trợ lý văn thư & Quản trị hồ sơ trường học</title>
+    <meta name="description" content="Hệ thống trợ lý văn thư, soạn thảo văn bản hành chính chuẩn Nghị định 30, điền biểu mẫu Word/Excel tự động, tạo văn bản hàng loạt, OCR và quản lý hồ sơ trường học thông minh tích hợp AI." />
+    <meta property="og:title" content="SCHOOL DOC AI - Trợ lý văn thư & Quản trị hồ sơ trường học" />
+    <meta property="og:description" content="Hệ thống trợ lý văn thư, soạn thảo văn bản hành chính chuẩn Nghị định 30, điền biểu mẫu Word/Excel tự động, tạo văn bản hàng loạt, OCR và quản lý hồ sơ trường học thông minh tích hợp AI." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      (function() {
+        // Ensure window.fetch has both getter and setter so browser extensions don't crash
+        try {
+          var realFetch = window.fetch;
+          var currentFetch = realFetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() {
+              return currentFetch;
+            },
+            set: function(fn) {
+              currentFetch = fn;
+            }
+          });
+        } catch (e) {}
+
+        // Catch and suppress uncaught errors from external browser extensions
+        window.addEventListener('error', function(event) {
+          if (
+            (event.filename && event.filename.indexOf('chrome-extension://') !== -1) ||
+            (event.message && event.message.indexOf('fetch') !== -1 && event.message.indexOf('getter') !== -1)
+          ) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

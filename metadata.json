@@ -1,0 +1,6 @@
+{
+  "name": "SCHOOL DOC AI - Trợ lý văn thư & Quản trị hồ sơ trường học",
+  "description": "Hệ thống trợ lý văn thư, soạn thảo văn bản hành chính chuẩn Nghị định 30, điền biểu mẫu Word/Excel tự động, tạo văn bản hàng loạt, OCR và quản lý hồ sơ trường học thông minh tích hợp AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
